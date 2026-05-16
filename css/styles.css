@@ -197,6 +197,11 @@ img {
   box-shadow: 0 20px 40px var(--shadow);
 }
 
+.no-hover-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 .image-card {
   padding: 0;
   overflow: hidden;
