@@ -827,3 +827,17 @@ img {
     min-height: 340px;
   }
 }
+
+.work-back-link {
+  margin-bottom: 34px;
+}
+
+.work-page-hero .hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.work-page-hero .kicker {
+  margin-bottom: 18px;
+}
