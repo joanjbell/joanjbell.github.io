@@ -791,10 +791,6 @@ img {
   align-items: center;
 }
 
-.work-image-card {
-  min-height: 460px;
-}
-
 .work-theme-list {
   display: flex;
   flex-wrap: wrap;
@@ -832,4 +828,13 @@ img {
 .narrow-copy .button + .kicker {
   margin-top: 34px;
   margin-bottom: 0px;
+}
+
+.work-image-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.work-image-card img:hover {
+  transform: none;
 }
