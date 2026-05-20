@@ -840,43 +840,54 @@ img {
 }
 
 /* =========================
-   ELSEWHERE
+   ELSEWHERE INDEX
 ========================= */
 
-.elsewhere-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+.elsewhere-index {
+  border-top: 1px solid rgba(47,44,39,0.12);
 }
 
-.elsewhere-card {
-  background: var(--surface);
-  border: 1px solid rgba(47,44,39,0.12);
-  border-radius: var(--radius);
-  padding: 24px;
+.elsewhere-link {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 30px;
+
+  padding: 20px 0;
+
+  border-bottom: 1px solid rgba(47,44,39,0.12);
+
   text-decoration: none;
   color: inherit;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+
+  transition: opacity 0.25s ease;
 }
 
-.elsewhere-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 30px rgba(0,0,0,0.06);
+.elsewhere-link:hover {
+  opacity: 0.65;
 }
 
-.elsewhere-card h3 {
-  margin: 0 0 10px;
+.elsewhere-name {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
 }
 
-.elsewhere-card p {
-  margin: 0;
+.elsewhere-description {
   opacity: 0.75;
 }
 
-@media (max-width: 900px) {
-  .elsewhere-grid {
+@media (max-width: 700px) {
+  .elsewhere-link {
     grid-template-columns: 1fr;
+    gap: 6px;
   }
+}
+
+.elsewhere-name::after {
+  content: " ↗";
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.elsewhere-link:hover .elsewhere-name::after {
+  opacity: 1;
 }
