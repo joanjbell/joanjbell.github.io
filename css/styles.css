@@ -838,3 +838,45 @@ img {
 .work-image-card img:hover {
   transform: none;
 }
+
+/* =========================
+   ELSEWHERE
+========================= */
+
+.elsewhere-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.elsewhere-card {
+  background: var(--surface);
+  border: 1px solid rgba(47,44,39,0.12);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.elsewhere-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 30px rgba(0,0,0,0.06);
+}
+
+.elsewhere-card h3 {
+  margin: 0 0 10px;
+}
+
+.elsewhere-card p {
+  margin: 0;
+  opacity: 0.75;
+}
+
+@media (max-width: 900px) {
+  .elsewhere-grid {
+    grid-template-columns: 1fr;
+  }
+}
