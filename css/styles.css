@@ -276,6 +276,8 @@ img {
 .works-feed {
   display: grid;
   gap: 34px;
+  margin-top: 50px;
+  margin-bottom: 40px;
 }
 
 .work {
