@@ -844,17 +844,18 @@ img {
 ========================= */
 
 .elsewhere-index {
-  border-top: 1px solid rgba(47,44,39,0.12);
+  margin-top: 24px;
+  border-top: 1px solid rgba(47,44,39,0.15);
 }
 
 .elsewhere-link {
   display: grid;
   grid-template-columns: 220px 1fr;
-  gap: 30px;
+  gap: 40px;
 
-  padding: 20px 0;
+  padding: 22px 0;
 
-  border-bottom: 1px solid rgba(47,44,39,0.12);
+  border-bottom: 1px solid rgba(47,44,39,0.15);
 
   text-decoration: none;
   color: inherit;
@@ -863,23 +864,13 @@ img {
 }
 
 .elsewhere-link:hover {
-  opacity: 0.65;
+  opacity: 0.7;
 }
 
 .elsewhere-name {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-}
-
-.elsewhere-description {
-  opacity: 0.75;
-}
-
-@media (max-width: 700px) {
-  .elsewhere-link {
-    grid-template-columns: 1fr;
-    gap: 6px;
-  }
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.5rem;
+  line-height: 1;
 }
 
 .elsewhere-name::after {
@@ -890,4 +881,16 @@ img {
 
 .elsewhere-link:hover .elsewhere-name::after {
   opacity: 1;
+}
+
+.elsewhere-description {
+  opacity: 0.75;
+  line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+  .elsewhere-link {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
 }
