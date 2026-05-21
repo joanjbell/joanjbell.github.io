@@ -72,6 +72,7 @@
 
 .theme-card:hover h3::after {
   width: 100%;
+  background: none;
 }
 
 .theme-card p {
