@@ -491,6 +491,13 @@ p {
   }
 }
 
+.filters button.active,
+.archive-filters button.active {
+  background: rgba(47, 44, 39, 0.08);
+  color: var(--ink);
+  border-color: rgba(47, 44, 39, 0.18);
+}
+
 .filters button,
 .archive-filters button {
   border: none;
