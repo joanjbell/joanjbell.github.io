@@ -5,7 +5,7 @@
     "description": "From Goodreads",
     "cover": "/images/books/WildHearts.png",
     "spine": "/images/books/WildHearts_spine.png",
-    "link": "#"
+    "link": "books/wild-hearts.html"
   },
   {
     "title": "Scars",
@@ -13,7 +13,7 @@
     "description": "From Goodreads",
     "cover": "/images/books/ScarsVolI.png",
     "spine": "/images/books/ScarsVolI_spine.png",
-    "link": "#"
+    "link": "books/scars-vol-i.html"
   },
   {
     "title": "Growing Pains",
@@ -21,7 +21,7 @@
     "description": "From Goodreads",
     "cover": "/images/books/GP.png",
     "spine": "/images/books/GP_spine.png",
-    "link": "#"
+    "link": "books/growijng-pains.html"
   },
   {
     "title": "The Lighthouse And Its Keeper",
@@ -29,7 +29,7 @@
     "description": "From Goodreads",
     "cover": "/images/books/Lighthouse.png",
     "spine": "/images/books/Lighthouse_spine.png",
-    "link": "#"
+    "link": "books/the-lighthouse-and-its-keeper.html"
   }
   
 ]
