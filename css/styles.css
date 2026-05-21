@@ -20,6 +20,8 @@
   --line: rgba(66, 63, 50, 0.15);
   --line-strong: rgba(66, 63, 50, 0.3);
   --shadow: rgba(0, 0, 0, 0.08);
+  --radius: 3px;
+  --radius-button: 999px;
 }
 
 /* ========================================
@@ -174,7 +176,7 @@ img {
   margin-top: 18px;
   padding: 10px 16px;
   border: 1px solid var(--line-strong);
-  border-radius: 8px;
+  border-radius: var(--radius-button);
   font-size: 13px;
   transition: background 0.2s ease, transform 0.2s ease;
 }
@@ -188,7 +190,7 @@ img {
   background: var(--surface);
   border: 1px solid var(--line);
   padding: 26px;
-  border-radius: 14px;
+  border-radius: var(--radius);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -205,7 +207,7 @@ img {
 .image-card {
   padding: 0;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: var(--radius);
 }
 
 .image-card img {
@@ -257,7 +259,7 @@ img {
   display: block;
   background: rgba(255, 255, 255, 0.18);
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: var(--radius);
   padding: 22px;
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
@@ -307,7 +309,7 @@ img {
   position: relative;
   width: 100%;
   overflow: hidden;
-  border-radius: 14px;
+  border-radius: var(--radius);
   background: var(--surface);
   border: 1px solid var(--line);
   min-height: 220px;
@@ -464,7 +466,7 @@ img {
   z-index: 1000;
   width: 180px;
   padding: 10px;
-  border-radius: 14px;
+  border-radius: var(--radius);
   border: 1px solid var(--line);
   background: var(--surface);
   box-shadow: 0 20px 40px var(--shadow);
@@ -483,13 +485,13 @@ img {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 8px;
+  border-radius: var(--radius);
 }
 
 .books-empty {
   margin-top: 24px;
   border: 1px dashed rgba(66, 63, 50, 0.25);
-  border-radius: 14px;
+  border-radius: var(--radius);
   padding: 34px;
   text-align: center;
   color: var(--muted);
@@ -579,7 +581,7 @@ img {
   width: 100%;
   margin-bottom: 20px;
   padding: 14px 16px;
-  border-radius: 10px;
+  border-radius: var(--radius);
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.6);
   color: var(--text);
@@ -897,131 +899,3 @@ img {
   }
 }
 
-/* =========================
-   MOBILE POLISH
-========================= */
-
-@media (max-width: 700px) {
-  body {
-    overflow-x: hidden;
-  }
-
-  .container {
-    width: min(100% - 32px, 1100px);
-  }
-
-  .nav-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .nav-links {
-    width: 100%;
-    gap: 14px;
-    font-size: 0.9rem;
-  }
-
-  .hero {
-    padding: 72px 0 56px;
-  }
-
-  .hero h1 {
-    font-size: clamp(2.4rem, 16vw, 4rem);
-    line-height: 0.98;
-  }
-
-  .hero-copy p,
-  .section-intro {
-    font-size: 1rem;
-    max-width: 100%;
-  }
-
-  .section {
-    padding: 64px 0;
-  }
-
-  .section.alt {
-    margin: 20px 0;
-  }
-
-  .themes-grid,
-  .about-focus-grid,
-  .shop-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .work,
-  .work.align-right {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-
-  .work.align-right .work-art,
-  .work.align-right .work-text {
-    order: initial;
-    text-align: left;
-    justify-self: start;
-  }
-
-  .work-art,
-  .work.is-large .work-art,
-  .work.is-medium .work-art,
-  .work.is-small .work-art {
-    min-height: 260px;
-  }
-
-  .work-text {
-    max-width: 100%;
-  }
-
-  .work-text h3 {
-    font-size: 2rem;
-  }
-
-  .books-shelf-wrap {
-    padding-top: 190px;
-    margin-top: -160px;
-  }
-
-  .book-spine {
-    height: 140px;
-  }
-
-  .card-link.is-large .book-spine,
-  .card-link.is-wide .book-spine,
-  .card-link.is-tall .book-spine {
-    height: 155px;
-  }
-
-  .elsewhere-link {
-    grid-template-columns: 1fr;
-    gap: 6px;
-    padding: 18px 0;
-  }
-
-  .work-page-grid,
-  .about-hero-grid,
-  .contact-grid {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
-
-  .work-image-card,
-  .about-portrait {
-    min-height: 320px;
-  }
-
-  .work-body {
-    max-width: 100%;
-  }
-
-  .poem-text {
-    font-size: 1rem;
-    line-height: 1.7;
-  }
-
-  .about-quote-card {
-    padding: 44px 24px;
-  }
-}
