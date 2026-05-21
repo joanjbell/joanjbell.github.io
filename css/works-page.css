@@ -14,165 +14,6 @@
 }
 
 /* =========================
-   BASE
-========================= */
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 16px;
-  line-height: 1.7;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.06;
-  background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-img {
-  max-width: 100%;
-}
-
-h1,
-h2,
-h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  margin: 0 0 16px;
-}
-
-h1 {
-  font-size: clamp(2.5rem, 6vw, 4.2rem);
-  line-height: 1.05;
-}
-
-h2 {
-  font-size: 2rem;
-}
-
-h3 {
-  font-size: 1.5rem;
-}
-
-p {
-  margin: 0;
-  max-width: 60ch;
-}
-
-.container {
-  width: min(var(--container), 90%);
-  margin: 0 auto;
-}
-
-/* =========================
-   NAV
-========================= */
-
-.nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(205, 207, 192, 0.8);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-}
-
-.nav-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 0;
-  gap: 24px;
-}
-
-.logo {
-  font-size: 13px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.nav-links {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.nav-links a {
-  font-size: 13px;
-  letter-spacing: 0.1em;
-  color: var(--ink);
-  opacity: 0.75;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-  opacity: 1;
-}
-
-/* =========================
-   SHARED PAGE STRUCTURE
-========================= */
-
-.section {
-  padding: 90px 0;
-}
-
-.section.alt {
-  background: rgba(246, 241, 232, 0.6);
-  border-top: 1px solid rgba(47, 44, 39, 0.08);
-  border-bottom: 1px solid rgba(47, 44, 39, 0.08);
-}
-
-.hero {
-  padding: 110px 0 80px;
-}
-
-.hero p {
-  margin-top: 18px;
-  max-width: 560px;
-  font-size: 1.02rem;
-  line-height: 1.65;
-}
-
-.narrow-copy {
-  max-width: 760px;
-}
-
-.section-header {
-  margin-bottom: 28px;
-}
-
-.kicker,
-.tag,
-.work-meta {
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  opacity: 0.6;
-}
-
-.kicker {
-  margin-bottom: 12px;
-}
-
-/* =========================
    THEME GRID
 ========================= */
 
@@ -328,31 +169,50 @@ p {
 .archive-filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin: 24px 0 34px;
+  gap: 28px;
+  margin: 24px 0 44px;
 }
 
 .filters button,
 .archive-filters button {
-  border: 1px solid var(--line);
-  background: transparent;
+  border: none;
+  background: none;
+  padding: 0;
+  border-radius: 0;
   color: var(--ink);
-  border-radius: var(--radius-button);
-  padding: 8px 14px;
-  font: inherit;
-  font-size: 12px;
-  letter-spacing: 0.08em;
+
+  position: relative;
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   cursor: pointer;
 }
 
-.filters button:hover,
+.filters button::after,
+.archive-filters button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -7px;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+  transition: width 0.2s ease;
+}
+
+.filters button:hover::after,
+.archive-filters button:hover::after,
+.filters button.active::after,
+.archive-filters button.active::after {
+  width: 100%;
+}
+
 .filters button.active,
-.archive-filters button:hover,
 .archive-filters button.active {
-  background: var(--ink);
-  color: var(--surface);
-  border-color: var(--ink);
+  color: var(--ink);
 }
 
 /* =========================
@@ -489,44 +349,4 @@ p {
   .archive-type {
     order: -1;
   }
-}
-
-.filters button.active,
-.archive-filters button.active {
-  background: rgba(47, 44, 39, 0.08);
-  color: var(--ink);
-  border-color: rgba(47, 44, 39, 0.18);
-}
-
-.filters button,
-.archive-filters button {
-  border: none;
-  background: none;
-  padding: 0;
-  border-radius: 0;
-
-  position: relative;
-
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.filters button::after,
-.archive-filters button::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -6px;
-
-  width: 0;
-  height: 1px;
-
-  background: currentColor;
-  transition: width 0.2s ease;
-}
-
-.filters button.active::after,
-.archive-filters button.active::after {
-  width: 100%;
 }
