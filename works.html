@@ -4,41 +4,118 @@
   <link rel="icon" type="image/png" href="images/favicon.png">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Works</title>
+  <title>Works — J. Bell Price</title>
 
   <link rel="stylesheet" href="css/webflow-core.css" />
 </head>
 
 <body>
 
-<div class="nav">
+<nav class="nav">
   <div class="container nav-inner">
-    <div class="logo">JOAN J. BELL</div>
+    <a class="logo" href="index.html">JOAN J. BELL</a>
+
     <div class="nav-links">
       <a href="index.html">Home</a>
+      <a href="works.html" class="active">Works</a>
+      <a href="about.html">About</a>
+      <a href="shop.html">Shop</a>
+      <a href="contact.html">Contact</a>
     </div>
   </div>
-</div>
+</nav>
 
-<section class="section">
-  <div class="container">
+<main>
 
-    <h1>Works</h1>
-
-    <!-- FILTERS -->
-    <div class="filters">
-      <button data-filter="all" class="active">All</button>
-      <button data-filter="poem">Poems</button>
-      <button data-filter="essay">Essays</button>
-      <button data-filter="fragment">Fragments</button>
-      <button data-filter="art">Art</button>
+  <section class="hero">
+    <div class="container narrow-copy">
+      <p class="kicker">Archive</p>
+      <h1>Works</h1>
+      <p>
+        Poems, essays, visual notes, and fragments gathered by theme,
+        recurrence, and trace.
+      </p>
     </div>
+  </section>
 
-    <!-- GRID -->
-    <div id="works-grid" class="grid-3"></div>
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="kicker">Selected Fragments</p>
+        <h2>Recent Work</h2>
+      </div>
 
-  </div>
-</section>
+      <div id="works-featured" class="works-feed"></div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <div class="section-header">
+        <p class="kicker">Themes</p>
+        <h2>Browse by Theme</h2>
+      </div>
+
+      <div class="themes-grid">
+        <a class="theme-card" href="theme-grief.html">
+          <span class="tag">Theme</span>
+          <h3>Grief</h3>
+          <p>Loss, absence, and the shape of what remains.</p>
+        </a>
+
+        <a class="theme-card" href="theme-love.html">
+          <span class="tag">Theme</span>
+          <h3>Love</h3>
+          <p>Devotion, intimacy, longing, and return.</p>
+        </a>
+
+        <a class="theme-card" href="theme-death.html">
+          <span class="tag">Theme</span>
+          <h3>Death</h3>
+          <p>The nearness of endings and the language around them.</p>
+        </a>
+
+        <a class="theme-card" href="theme-spirituality.html">
+          <span class="tag">Theme</span>
+          <h3>Spirituality</h3>
+          <p>Faith, mystery, prayer, and the unseen.</p>
+        </a>
+
+        <a class="theme-card" href="theme-change.html">
+          <span class="tag">Theme</span>
+          <h3>Change</h3>
+          <p>Becoming, rupture, transition, and renewal.</p>
+        </a>
+
+        <a class="theme-card" href="theme-memory.html">
+          <span class="tag">Theme</span>
+          <h3>Memory</h3>
+          <p>What returns, repeats, and refuses to disappear.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="kicker">Complete Index</p>
+        <h2>Archive</h2>
+      </div>
+
+      <div class="filters archive-filters">
+        <button data-filter="all" class="active">All</button>
+        <button data-filter="poem">Poems</button>
+        <button data-filter="essay">Essays</button>
+        <button data-filter="fragment">Fragments</button>
+        <button data-filter="art">Art</button>
+      </div>
+
+      <div id="archive-list" class="archive-list"></div>
+    </div>
+  </section>
+
+</main>
 
 <script>
 let allItems = [];
@@ -47,12 +124,64 @@ fetch("./data/content.json")
   .then(res => res.json())
   .then(data => {
     allItems = data.sort((a, b) => new Date(b.date) - new Date(a.date));
-    render("all");
+    renderFeatured();
+    renderArchive("all");
+  })
+  .catch(error => {
+    console.error(error);
+    const archive = document.getElementById("archive-list");
+    if (archive) {
+      archive.innerHTML = `<p class="error">Unable to load works.</p>`;
+    }
   });
 
-function render(filter) {
-  const grid = document.getElementById("works-grid");
-  grid.innerHTML = "";
+function renderFeatured() {
+  const container = document.getElementById("works-featured");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  allItems.slice(0, 4).forEach((item, i) => {
+    const el = document.createElement("a");
+    el.href = item.link || "#";
+    el.className = "work";
+    el.classList.add(i % 2 === 0 ? "align-left" : "align-right");
+
+    const hasImage = item.image && item.image.trim() !== "";
+
+    if (hasImage) {
+      el.innerHTML = `
+        <div class="work-art">
+          <img src="${item.image}" alt="${item.title}">
+        </div>
+
+        <div class="work-text">
+          <p class="work-meta">${item.type || "work"}</p>
+          <h3>${item.title}</h3>
+          <p>${item.description || ""}</p>
+        </div>
+      `;
+    } else {
+      el.classList.add("is-text");
+
+      el.innerHTML = `
+        <div class="work-text">
+          <p class="work-meta">${item.type || "work"}</p>
+          <h3>${item.title}</h3>
+          <p>${item.description || ""}</p>
+        </div>
+      `;
+    }
+
+    container.appendChild(el);
+  });
+}
+
+function renderArchive(filter) {
+  const archive = document.getElementById("archive-list");
+  if (!archive) return;
+
+  archive.innerHTML = "";
 
   const filtered = filter === "all"
     ? allItems
@@ -60,31 +189,30 @@ function render(filter) {
 
   filtered.forEach(item => {
     const el = document.createElement("a");
-    el.href = item.link;
-    el.className = "card";
+    el.href = item.link || "#";
+    el.className = "archive-item";
 
-    if (item.type === "art") {
-      el.innerHTML = `
-        <img src="${item.image}" class="art-image" />
-      `;
-    } else {
-      el.innerHTML = `
-        <div class="tag">${item.type}</div>
-        <h3>${item.title}</h3>
-      `;
-    }
+    const year = item.date ? new Date(item.date).getFullYear() : "";
 
-    grid.appendChild(el);
+    el.innerHTML = `
+      <div class="archive-date">${year}</div>
+      <div>
+        <div class="archive-title">${item.title}</div>
+        <p class="archive-desc">${item.description || ""}</p>
+      </div>
+      <div class="archive-type">${item.type || "work"}</div>
+    `;
+
+    archive.appendChild(el);
   });
 }
 
-/* filter buttons */
 document.querySelectorAll(".filters button").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".filters button").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
 
-    render(btn.dataset.filter);
+    renderArchive(btn.dataset.filter);
   });
 });
 </script>
