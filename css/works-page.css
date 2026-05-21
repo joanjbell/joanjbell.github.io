@@ -9,8 +9,8 @@
   --radius-button: 999px;
   --container: 1080px;
 
-  --font-display: Georgia, "Times New Roman", serif;
-  --font-body: system-ui, sans-serif;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 /* =========================
@@ -482,4 +482,37 @@ p {
   .archive-type {
     order: -1;
   }
+}
+
+.filters button,
+.archive-filters button {
+  border: none;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+
+  position: relative;
+
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.filters button::after,
+.archive-filters button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+
+  width: 0;
+  height: 1px;
+
+  background: currentColor;
+  transition: width 0.2s ease;
+}
+
+.filters button.active::after,
+.archive-filters button.active::after {
+  width: 100%;
 }
