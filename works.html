@@ -35,7 +35,6 @@
 
   <section class="hero works-hero">
     <div class="container">
-
       <p class="kicker">Archive</p>
 
       <h1>Collected Works</h1>
@@ -44,7 +43,6 @@
         Poems, essays, visual notes, and fragments gathered over time.
         Browse by theme, follow recurring motifs, or move through the archive chronologically.
       </p>
-
     </div>
   </section>
 
@@ -59,17 +57,6 @@
     </div>
   </section>
 
-  <!-- THEMES -->
-  <section class="section alt">
-    <div class="container">
-      <div class="section-header">
-        <h2>Themes</h2>
-        <p class="section-intro">Recurring concerns, emotional structures, and interior rooms across the archive.</p>
-      </div>
-      <div id="themes-grid" class="themes-grid"></div>
-    </div>
-  </section>
-
   <section class="section">
     <div class="container">
       <div class="section-header">
@@ -77,12 +64,31 @@
         <h2>Archive</h2>
       </div>
 
-      <div class="filters archive-filters">
-        <button data-filter="all" class="active">All</button>
-        <button data-filter="poem">Poems</button>
-        <button data-filter="essay">Essays</button>
-        <button data-filter="fragment">Fragments</button>
-        <button data-filter="art">Art</button>
+      <div class="works-filter-group">
+        <p class="works-filter-label">Theme</p>
+
+        <div class="works-theme-filters">
+          <button data-theme="all" class="active">All</button>
+          <button data-theme="grief">Grief</button>
+          <button data-theme="love">Love</button>
+          <button data-theme="death">Death</button>
+          <button data-theme="spirituality">Spirituality</button>
+          <button data-theme="change">Change</button>
+          <button data-theme="memory">Memory</button>
+          <button data-theme="motherhood">Motherhood</button>
+        </div>
+      </div>
+
+      <div class="works-filter-group">
+        <p class="works-filter-label">Type</p>
+
+        <div class="filters archive-filters">
+          <button data-filter="all" class="active">All</button>
+          <button data-filter="poem">Poems</button>
+          <button data-filter="essay">Essays</button>
+          <button data-filter="fragment">Fragments</button>
+          <button data-filter="art">Art</button>
+        </div>
       </div>
 
       <div id="archive-list" class="archive-list"></div>
@@ -93,13 +99,15 @@
 
 <script>
 let allItems = [];
+let activeType = "all";
+let activeTheme = "all";
 
 fetch("./data/content.json")
   .then(res => res.json())
   .then(data => {
     allItems = data.sort((a, b) => new Date(b.date) - new Date(a.date));
     renderFeatured();
-    renderArchive("all");
+    renderArchive();
   })
   .catch(error => {
     console.error(error);
@@ -151,15 +159,22 @@ function renderFeatured() {
   });
 }
 
-function renderArchive(filter) {
+function renderArchive() {
   const archive = document.getElementById("archive-list");
   if (!archive) return;
 
   archive.innerHTML = "";
 
-  const filtered = filter === "all"
-    ? allItems
-    : allItems.filter(item => item.type === filter);
+  const filtered = allItems.filter(item => {
+    const matchesType =
+      activeType === "all" || item.type === activeType;
+
+    const matchesTheme =
+      activeTheme === "all" ||
+      (item.theme && item.theme.includes(activeTheme));
+
+    return matchesType && matchesTheme;
+  });
 
   filtered.forEach(item => {
     const el = document.createElement("a");
@@ -181,12 +196,23 @@ function renderArchive(filter) {
   });
 }
 
-document.querySelectorAll(".filters button").forEach(btn => {
+document.querySelectorAll(".archive-filters button").forEach(btn => {
   btn.addEventListener("click", () => {
-    document.querySelectorAll(".filters button").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".archive-filters button").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
 
-    renderArchive(btn.dataset.filter);
+    activeType = btn.dataset.filter;
+    renderArchive();
+  });
+});
+
+document.querySelectorAll(".works-theme-filters button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".works-theme-filters button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    activeTheme = btn.dataset.theme;
+    renderArchive();
   });
 });
 </script>
