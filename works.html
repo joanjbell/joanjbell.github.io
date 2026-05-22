@@ -67,16 +67,7 @@
       <div class="works-filter-group">
         <p class="works-filter-label">Theme</p>
 
-        <div class="works-theme-filters">
-          <button data-theme="all" class="active">All</button>
-          <button data-theme="grief">Grief</button>
-          <button data-theme="love">Love</button>
-          <button data-theme="death">Death</button>
-          <button data-theme="spirituality">Spirituality</button>
-          <button data-theme="change">Change</button>
-          <button data-theme="memory">Memory</button>
-          <button data-theme="motherhood">Motherhood</button>
-        </div>
+        <div id="works-theme-filters" class="works-theme-filters"></div>
       </div>
 
       <div class="works-filter-group">
@@ -106,12 +97,26 @@ fetch("./data/content.json")
   .then(res => res.json())
   .then(data => {
     allItems = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+
     renderFeatured();
+    renderThemeFilters();
     renderArchive();
   })
   .catch(error => {
     console.error(error);
+
+    const featured = document.getElementById("works-featured");
     const archive = document.getElementById("archive-list");
+    const themes = document.getElementById("works-theme-filters");
+
+    if (featured) {
+      featured.innerHTML = `<p class="error">Unable to load recent works.</p>`;
+    }
+
+    if (themes) {
+      themes.innerHTML = `<p class="error">Unable to load themes.</p>`;
+    }
+
     if (archive) {
       archive.innerHTML = `<p class="error">Unable to load works.</p>`;
     }
@@ -134,12 +139,12 @@ function renderFeatured() {
     if (hasImage) {
       el.innerHTML = `
         <div class="work-art">
-          <img src="${item.image}" alt="${item.title}">
+          <img src="${item.image}" alt="${item.title || ""}">
         </div>
 
         <div class="work-text">
           <p class="work-meta">${item.type || "work"}</p>
-          <h3>${item.title}</h3>
+          <h3>${item.title || "Untitled"}</h3>
           <p>${item.description || ""}</p>
         </div>
       `;
@@ -149,13 +154,51 @@ function renderFeatured() {
       el.innerHTML = `
         <div class="work-text">
           <p class="work-meta">${item.type || "work"}</p>
-          <h3>${item.title}</h3>
+          <h3>${item.title || "Untitled"}</h3>
           <p>${item.description || ""}</p>
         </div>
       `;
     }
 
     container.appendChild(el);
+  });
+}
+
+function renderThemeFilters() {
+  const container = document.getElementById("works-theme-filters");
+  if (!container) return;
+
+  const themes = [
+    ...new Set(
+      allItems.flatMap(item => Array.isArray(item.theme) ? item.theme : [])
+    )
+  ].sort();
+
+  container.innerHTML = "";
+
+  const allButton = document.createElement("button");
+  allButton.type = "button";
+  allButton.dataset.theme = "all";
+  allButton.className = "active";
+  allButton.textContent = "All";
+  container.appendChild(allButton);
+
+  themes.forEach(theme => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.dataset.theme = theme;
+    button.textContent = formatLabel(theme);
+    container.appendChild(button);
+  });
+
+  container.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      container.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      activeTheme = btn.dataset.theme;
+      renderArchive();
+    });
   });
 }
 
@@ -169,12 +212,18 @@ function renderArchive() {
     const matchesType =
       activeType === "all" || item.type === activeType;
 
+    const itemThemes = Array.isArray(item.theme) ? item.theme : [];
+
     const matchesTheme =
-      activeTheme === "all" ||
-      (item.theme && item.theme.includes(activeTheme));
+      activeTheme === "all" || itemThemes.includes(activeTheme);
 
     return matchesType && matchesTheme;
   });
+
+  if (filtered.length === 0) {
+    archive.innerHTML = `<p class="error">No works found for this selection.</p>`;
+    return;
+  }
 
   filtered.forEach(item => {
     const el = document.createElement("a");
@@ -186,7 +235,7 @@ function renderArchive() {
     el.innerHTML = `
       <div class="archive-date">${year}</div>
       <div>
-        <div class="archive-title">${item.title}</div>
+        <div class="archive-title">${item.title || "Untitled"}</div>
         <p class="archive-desc">${item.description || ""}</p>
       </div>
       <div class="archive-type">${item.type || "work"}</div>
@@ -206,15 +255,11 @@ document.querySelectorAll(".archive-filters button").forEach(btn => {
   });
 });
 
-document.querySelectorAll(".works-theme-filters button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".works-theme-filters button").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    activeTheme = btn.dataset.theme;
-    renderArchive();
-  });
-});
+function formatLabel(value) {
+  return value
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, letter => letter.toUpperCase());
+}
 </script>
 
 </body>
