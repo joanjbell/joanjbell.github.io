@@ -275,6 +275,7 @@ img {
 .theme-card h3 {
   position: relative;
   display: inline-block;
+  margin-bottom: 8px;
 }
 
 .theme-card h3::after {
