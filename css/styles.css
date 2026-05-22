@@ -259,8 +259,8 @@ img {
   display: block;
   background: none;
   /*background: rgba(255, 255, 255, 0.18);*/
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
+  /*border: 1px solid var(--line);
+  border-radius: var(--radius);*/
   padding: 22px;
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
