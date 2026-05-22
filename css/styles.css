@@ -1027,7 +1027,60 @@ img {
   text-underline-offset: 5px;
 }
 
+/* =========================
+   WORKS PAGE THEME FILTERS
+========================= */
+.works-filter-group {
+  margin: 24px 0;
+}
 
+.works-filter-label {
+  margin-bottom: 12px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(66, 63, 50, 0.58);
+}
+
+.works-theme-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.works-theme-filters button {
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--ink);
+  position: relative;
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.works-theme-filters button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -7px;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+  transition: width 0.2s ease;
+}
+
+.works-theme-filters button:hover::after,
+.works-theme-filters button.active::after {
+  width: 100%;
+}
+
+.archive-filters {
+  margin: 0;
+}
 
 /* ========================================
    MOBILE RESPONSIVE POLISH
