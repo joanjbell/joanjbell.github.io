@@ -901,7 +901,7 @@ img {
 }
 
 .elsewhere-name {
-  font-family: var(--font-display);
+  font-family: Georgia, "Times New Roman", serif;
   font-size: 1.5rem;
   line-height: 1;
 }
@@ -1019,6 +1019,7 @@ img {
   margin-top: 6px;
   max-width: 620px;
   opacity: 0.72;
+  font-family: var(--font-body);
 }
 
 .archive-item:hover .archive-title {
@@ -1232,5 +1233,16 @@ img {
   .about-portrait,
   .work-image-card {
     min-height: 260px;
+  }
+}
+
+@media (max-width: 700px) {
+  .archive-item {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .archive-type {
+    justify-self: start;
   }
 }
