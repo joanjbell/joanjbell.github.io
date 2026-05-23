@@ -53,7 +53,13 @@
         <h2>Recent Work</h2>
       </div>
 
-      <div id="works-featured" class="works-feed"></div>
+      <div class="recent-carousel-wrap">
+        <button class="carousel-btn carousel-prev" type="button" aria-label="Previous recent work">←</button>
+
+        <div id="works-featured" class="recent-carousel"></div>
+
+        <button class="carousel-btn carousel-next" type="button" aria-label="Next recent work">→</button>
+      </div>
     </div>
   </section>
 
@@ -128,39 +134,52 @@ function renderFeatured() {
 
   container.innerHTML = "";
 
-  allItems.slice(0, 4).forEach((item, i) => {
+  allItems.slice(0, 8).forEach(item => {
     const el = document.createElement("a");
     el.href = item.link || "#";
-    el.className = "work";
-    el.classList.add(i % 2 === 0 ? "align-left" : "align-right");
+    el.className = "recent-slide";
 
     const hasImage = item.image && item.image.trim() !== "";
 
-    if (hasImage) {
-      el.innerHTML = `
-        <div class="work-art">
+    el.innerHTML = `
+      ${hasImage ? `
+        <div class="recent-slide-image">
           <img src="${item.image}" alt="${item.title || ""}">
         </div>
+      ` : ""}
 
-        <div class="work-text">
-          <p class="work-meta">${item.type || "work"}</p>
-          <h3>${item.title || "Untitled"}</h3>
-          <p>${item.description || ""}</p>
-        </div>
-      `;
-    } else {
-      el.classList.add("is-text");
-
-      el.innerHTML = `
-        <div class="work-text">
-          <p class="work-meta">${item.type || "work"}</p>
-          <h3>${item.title || "Untitled"}</h3>
-          <p>${item.description || ""}</p>
-        </div>
-      `;
-    }
+      <div class="recent-slide-text">
+        <p class="work-meta">${item.type || "work"}</p>
+        <h3>${item.title || "Untitled"}</h3>
+        <p>${item.description || ""}</p>
+      </div>
+    `;
 
     container.appendChild(el);
+  });
+
+  setupRecentCarousel();
+}
+
+function setupRecentCarousel() {
+  const carousel = document.getElementById("works-featured");
+  const prev = document.querySelector(".carousel-prev");
+  const next = document.querySelector(".carousel-next");
+
+  if (!carousel || !prev || !next) return;
+
+  prev.addEventListener("click", () => {
+    carousel.scrollBy({
+      left: -carousel.clientWidth * 0.85,
+      behavior: "smooth"
+    });
+  });
+
+  next.addEventListener("click", () => {
+    carousel.scrollBy({
+      left: carousel.clientWidth * 0.85,
+      behavior: "smooth"
+    });
   });
 }
 
