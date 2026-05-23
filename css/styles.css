@@ -1496,10 +1496,10 @@ img {
 }
 
 .works-recents-section {
-  padding-bottom: 10px;
+  padding-bottom: 0px;
 }
 
 .archive-section {
-  padding-top: 10px;
+  padding-top: 0px;
   margin-top: 0;
 }
