@@ -1305,10 +1305,6 @@ img {
 
 .recent-carousel-wrap {
   position: relative;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: 16px;
-  align-items: center;
   margin-top: 36px;
 }
 
@@ -1318,7 +1314,7 @@ img {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  padding: 8px 2px 22px;
+  padding: 8px 2px 24px;
 }
 
 .recent-carousel::-webkit-scrollbar {
@@ -1330,8 +1326,29 @@ img {
   border-radius: 999px;
 }
 
+.recent-carousel-wrap::before,
+.recent-carousel-wrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 24px;
+  width: 42px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.recent-carousel-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg), transparent);
+}
+
+.recent-carousel-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg), transparent);
+}
+
 .recent-slide {
-  flex: 0 0 min(420px, 82vw);
+  flex: 0 0 340px;
   scroll-snap-align: start;
 
   display: flex;
@@ -1340,6 +1357,10 @@ img {
   color: inherit;
   border-bottom: 1px solid var(--line);
   padding-bottom: 18px;
+}
+
+.recent-slide.is-featured {
+  flex-basis: 420px;
 }
 
 .recent-slide-image {
@@ -1356,7 +1377,6 @@ img {
   height: 100%;
   object-fit: cover;
   display: block;
-
   transition: transform 0.4s ease;
 }
 
@@ -1370,7 +1390,7 @@ img {
   margin: 8px 0 10px;
 
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.45rem, 2.4vw, 1.9rem);
   line-height: 1.1;
 }
 
@@ -1397,9 +1417,28 @@ img {
   transform: scaleX(1);
 }
 
+.recent-date {
+  margin-top: 4px;
+  margin-bottom: 6px;
+
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(66, 63, 50, 0.5);
+}
+
+.recent-themes {
+  margin-top: 12px;
+
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(66, 63, 50, 0.55);
+}
+
 .carousel-btn {
   position: absolute;
-  top: 42%;
+  top: 36%;
   z-index: 5;
 
   width: 38px;
@@ -1407,15 +1446,18 @@ img {
 
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: transparent;
+  background: rgba(205, 207, 192, 0.72);
   color: var(--text);
 
   cursor: pointer;
   font: inherit;
 
-  transition: background 0.2s ease,
-              transform 0.2s ease;
   opacity: 0.45;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .carousel-btn:hover {
@@ -1424,88 +1466,17 @@ img {
   opacity: 1;
 }
 
-@media (max-width: 700px) {
-  .recent-carousel-wrap {
-    grid-template-columns: 1fr;
-  }
-
-  .carousel-btn {
-    display: none;
-  }
-
-  .recent-slide {
-    flex-basis: 84vw;
-  }
-}
-/* =========================
-   RECENT CAROUSEL POLISH
-========================= */
-
-.recent-carousel-wrap {
-  position: relative;
-  margin-top: 36px;
+.carousel-prev {
+  left: -18px;
 }
 
-.recent-carousel-wrap::before,
-.recent-carousel-wrap::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 18px;
-  width: 42px;
-  z-index: 2;
-  pointer-events: none;
+.carousel-next {
+  right: -18px;
 }
 
-.recent-carousel-wrap::before {
-  left: 48px;
-  background: linear-gradient(to right, var(--bg), transparent);
-}
-
-.recent-carousel-wrap::after {
-  right: 48px;
-  background: linear-gradient(to left, var(--bg), transparent);
-}
-
-.recent-slide.is-featured {
-  flex-basis: min(520px, 86vw);
-}
-
-.recent-themes {
-  margin-top: 12px;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(66, 63, 50, 0.55);
-}
-
+/* Remove if the link no longer exists in your HTML */
 .archive-jump-link {
-  display: inline-block;
-  margin-top: 18px;
-
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-
-  color: rgba(66,63,50,0.65);
-
-  position: relative;
-}
-
-.archive-jump-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-  width: 0;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.55;
-  transition: width 0.2s ease;
-}
-
-.archive-jump-link:hover::after {
-  width: 100%;
+  display: none;
 }
 
 @media (max-width: 700px) {
@@ -1513,14 +1484,15 @@ img {
   .recent-carousel-wrap::after {
     display: none;
   }
-}
 
-.carousel-prev {
-  left: -18px;
-}
+  .carousel-btn {
+    display: none;
+  }
 
-.carousel-next {
-  right: -18px;
+  .recent-slide,
+  .recent-slide.is-featured {
+    flex-basis: 84vw;
+  }
 }
 
 .works-recents-section {

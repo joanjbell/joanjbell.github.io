@@ -60,7 +60,6 @@
 
         <button class="carousel-btn carousel-next" type="button" aria-label="Next recent work">→</button>
       </div>
-      <a class="archive-jump-link" href="#archive-index">View full archive ↓</a>
     </div>
   </section>
 
@@ -73,7 +72,6 @@
 
       <div class="works-filter-group">
         <p class="works-filter-label">Theme</p>
-
         <div id="works-theme-filters" class="works-theme-filters"></div>
       </div>
 
@@ -146,6 +144,7 @@ function renderFeatured() {
 
     const hasImage = item.image && item.image.trim() !== "";
     const themes = Array.isArray(item.theme) ? item.theme : [];
+    const year = item.date ? new Date(item.date).getFullYear() : "";
 
     el.innerHTML = `
       ${hasImage ? `
@@ -156,7 +155,11 @@ function renderFeatured() {
 
       <div class="recent-slide-text">
         <p class="work-meta">${item.type || "work"}</p>
+
+        ${year ? `<p class="recent-date">${year}</p>` : ""}
+
         <h3>${item.title || "Untitled"}</h3>
+
         <p>${item.description || ""}</p>
 
         ${themes.length ? `
