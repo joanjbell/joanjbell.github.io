@@ -1415,11 +1415,13 @@ img {
 
   transition: background 0.2s ease,
               transform 0.2s ease;
+  opacity: 0.45;
 }
 
 .carousel-btn:hover {
   background: rgba(255, 255, 255, 0.28);
   transform: translateY(-1px);
+  opacity: 1;
 }
 
 @media (max-width: 700px) {
@@ -1519,4 +1521,12 @@ img {
 
 .carousel-next {
   right: -18px;
+}
+
+.works-recents-section {
+  padding-bottom: 48px;
+}
+
+.archive-section {
+  padding-top: 48px;
 }
