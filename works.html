@@ -54,6 +54,7 @@
       </div>
 
       <div class="recent-carousel-wrap">
+        <a class="archive-jump-link" href="#archive-index">View full archive ↓</a>
         <button class="carousel-btn carousel-prev" type="button" aria-label="Previous recent work">←</button>
 
         <div id="works-featured" class="recent-carousel"></div>
@@ -63,7 +64,7 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="archive-index">
     <div class="container">
       <div class="section-header">
         <p class="kicker">Complete Index</p>
@@ -134,12 +135,17 @@ function renderFeatured() {
 
   container.innerHTML = "";
 
-  allItems.slice(0, 8).forEach(item => {
+  allItems.slice(0, 8).forEach((item, index) => {
     const el = document.createElement("a");
     el.href = item.link || "#";
     el.className = "recent-slide";
 
+    if (index === 0) {
+      el.classList.add("is-featured");
+    }
+
     const hasImage = item.image && item.image.trim() !== "";
+    const themes = Array.isArray(item.theme) ? item.theme : [];
 
     el.innerHTML = `
       ${hasImage ? `
@@ -152,6 +158,12 @@ function renderFeatured() {
         <p class="work-meta">${item.type || "work"}</p>
         <h3>${item.title || "Untitled"}</h3>
         <p>${item.description || ""}</p>
+
+        ${themes.length ? `
+          <p class="recent-themes">
+            ${themes.map(theme => formatLabel(theme)).join(" / ")}
+          </p>
+        ` : ""}
       </div>
     `;
 
