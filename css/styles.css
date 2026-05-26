@@ -1315,6 +1315,10 @@ img {
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   padding: 8px 2px 24px;
+
+  /* Hide scrollbar (cross-browser) */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
 }
 
 .recent-carousel-wrap::before,
@@ -1473,6 +1477,8 @@ img {
 .carousel-next {
   right: -18px;
 }
+
+
 
 /* Remove if the link no longer exists in your HTML */
 .archive-jump-link {
